@@ -2,6 +2,7 @@ package platzi.play;
 
 import platzi.play.contenido.Pelicula;
 import platzi.play.plataforma.Usuario;
+import platzi.play.util.ScannerUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,14 +18,24 @@ public class Main {
 //
 //        System.out.println("Hola " + nombre);
 
-        Pelicula pelicula = new Pelicula();
-        pelicula.titulo = "El hombre araña";
-        pelicula.fechaExtreno = LocalDate.of(2018,10,15);
-        pelicula.genero = "Fantasia";
-        pelicula.duracion = 120;
-        pelicula.calificar(4.5);
+        String nombre = ScannerUtils.capturarTexto("Nombre del contenido");
+        String genero = ScannerUtils.capturarTexto("Genero del contenido");
+        int duracion = ScannerUtils.capturarNumero("Duracion del contenido");
+        double calificacion = ScannerUtils.capturarDecimal("Calificacion");
 
-        // castear calificacion a int
+
+
+
+        Pelicula pelicula = new Pelicula();
+        pelicula.titulo = nombre;
+        pelicula.fechaExtreno = LocalDate.of(2018,10,15);
+        pelicula.genero = genero;
+        pelicula.duracion = duracion;
+        pelicula.calificar(calificacion);
+
+        System.out.println(pelicula.obtenerLaFichaTecnica());
+
+        /*// castear calificacion a int
         int calificacionInt = (int) pelicula.calificacion;
         System.out.println("calificacion int: " + calificacionInt);
 
@@ -38,6 +49,6 @@ public class Main {
         Usuario usuario = new Usuario();
         usuario.nombre = "Alejandro";
         usuario.fechaRegistro = LocalDateTime.of(2026,1,23,8,2,0);
-        usuario.ver(pelicula);
+        usuario.ver(pelicula);*/
     }
 }
