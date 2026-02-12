@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
+
+    public static final String VERSION = "1.0.0";
     public static void main(String[] args) {
 //        System.out.println("hola");
 //
@@ -26,11 +28,7 @@ public class Main {
 
 
 
-        Pelicula pelicula = new Pelicula();
-        pelicula.titulo = nombre;
-        pelicula.fechaExtreno = LocalDate.of(2018,10,15);
-        pelicula.genero = genero;
-        pelicula.duracion = duracion;
+        Pelicula pelicula = new Pelicula(nombre, duracion, genero);
         pelicula.calificar(calificacion);
 
         System.out.println(pelicula.obtenerLaFichaTecnica());
@@ -41,14 +39,9 @@ public class Main {
 
         //castear String a long
         long numeroDePremios = Long.parseLong("23");
-        System.out.println("Numero de premios: " + numeroDePremios);
+        System.out.println("Numero de premios: " + numeroDePremios);*/
 
-//        System.out.println(pelicula.obtenerLaFichaTecnica());
-//        System.out.println(pelicula.esPopular());
-
-        Usuario usuario = new Usuario();
-        usuario.nombre = "Alejandro";
-        usuario.fechaRegistro = LocalDateTime.of(2026,1,23,8,2,0);
-        usuario.ver(pelicula);*/
+        Usuario usuario = new Usuario("Alejandro" , "alejandro@gmail.com");
+        usuario.ver(pelicula);
     }
 }
