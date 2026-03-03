@@ -2,7 +2,6 @@ package platzi.play.plataforma;
 
 import platzi.play.contenido.Pelicula;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Usuario {

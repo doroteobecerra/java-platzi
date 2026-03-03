@@ -14,8 +14,31 @@ public class Plataforma {
         this.contenido = new ArrayList<>();
     }
 
-    public void agregar (Pelicula elemento) {
+    public void agregar(Pelicula elemento) {
         this.contenido.add(elemento);
+    }
+
+    public void mostrarTitulos() {
+        for (Pelicula pelicula : contenido) {
+            System.out.println(pelicula.getTitulo());
+        }
+
+        contenido.forEach(contenido -> System.out.println(contenido.getTitulo()));
+    }
+
+    public void eliminar(Pelicula elemento) {
+        this.contenido.remove(elemento);
+    }
+
+    public Pelicula buscarPelicula (String titulo){
+        return contenido.stream().filter(contenido-> contenido.getTitulo().equalsIgnoreCase(titulo))
+                .findFirst().orElse(null);
+    }
+
+    public List<Pelicula> buscarPorGenero(String genero) {
+        return contenido.stream()
+                .filter(contenido -> contenido.getGenero().equalsIgnoreCase(genero))
+                .toList();
     }
 
     public String getNombre() {
