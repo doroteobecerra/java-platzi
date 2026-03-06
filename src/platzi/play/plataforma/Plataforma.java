@@ -18,8 +18,8 @@ public class Plataforma {
         this.contenido.add(elemento);
     }
 
-    public void mostrarTitulos() {
-        contenido.forEach(contenido -> System.out.println(contenido.getTitulo()));
+    public List<String> getTitulos() {
+        return contenido.stream().map(Pelicula::getTitulo).toList();
     }
 
     public void eliminar(Pelicula elemento) {
