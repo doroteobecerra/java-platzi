@@ -1,8 +1,12 @@
 package platzi.play.plataforma;
 
+import platzi.play.contenido.Genero;
 import platzi.play.contenido.Pelicula;
+import platzi.play.contenido.ResumenContenido;
+import platzi.play.excepcion.PeliculaExistenteException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Plataforma {
@@ -15,11 +19,19 @@ public class Plataforma {
     }
 
     public void agregar(Pelicula elemento) {
+        Pelicula contenido = this.buscarPelicula(elemento.getTitulo());
+        if(contenido != null){
+            throw new PeliculaExistenteException(elemento.getTitulo());
+        }
         this.contenido.add(elemento);
     }
 
     public List<String> getTitulos() {
         return contenido.stream().map(Pelicula::getTitulo).toList();
+    }
+
+    public List<ResumenContenido> getResumenes (){
+        return contenido.stream().map(c -> new ResumenContenido(c.getTitulo(), c.getDuracion(), c.getGenero())).toList();
     }
 
     public void eliminar(Pelicula elemento) {
@@ -31,10 +43,26 @@ public class Plataforma {
                 .findFirst().orElse(null);
     }
 
-    public List<Pelicula> buscarPorGenero(String genero) {
+    public List<Pelicula> buscarPorGenero(Genero genero) {
         return contenido.stream()
-                .filter(contenido -> contenido.getGenero().equalsIgnoreCase(genero))
+                .filter(contenido -> contenido.getGenero().equals(genero))
                 .toList();
+    }
+
+    public List<Pelicula> getPopulares() {
+        return contenido.stream().sorted(Comparator.comparingDouble(Pelicula::getCalificacion).reversed()).toList();
+    }
+
+    public List<Pelicula> getMejorCalificadas() {
+        return  contenido.stream().filter(pelicula -> pelicula.getCalificacion() > 4).toList();
+    }
+
+    public Pelicula getPeliculaMasLarga() {
+        return contenido.stream().max(Comparator.comparingInt(Pelicula::getDuracion)).orElse(null);
+    }
+
+    public int getDuracionTotal() {
+        return contenido.stream().mapToInt(Pelicula::getDuracion).sum();
     }
 
     public String getNombre() {
