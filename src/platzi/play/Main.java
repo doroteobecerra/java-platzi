@@ -19,8 +19,9 @@ public class Main {
     public static final int VER_POPULARES = 5;
     public static final int MEJOR_CALIFICADAS = 6;
     public static final int PELICULA_LARGA = 7;
-    public static final int ELIMINAR = 8;
-    public static final int SALIR = 9;
+    public static final int REPRODUCIR = 8;
+    public static final int ELIMINAR = 9;
+    public static final int SALIR = 10;
 
     public static void main(String[] args) {
         Plataforma plataforma = new Plataforma(NOMBRE_VERSION);
@@ -40,8 +41,9 @@ public class Main {
                     5. Ver populares
                     6. Mejor calificadas
                     7. Película mas larga
-                    8. Eliminar
-                    9. Salir
+                    8. Reproducir
+                    9. Eliminar
+                    10. Salir
                     """);
 
             switch (opcionElegida) {
@@ -88,6 +90,15 @@ public class Main {
                 }
                 case PELICULA_LARGA -> {
                     System.out.println(plataforma.getPeliculaMasLarga().obtenerFichaTecnica());
+                }
+                case REPRODUCIR -> {
+                    String nombre = ScannerUtils.capturarTexto("Nombre del contenido a reproducir");
+                    Pelicula contenido = plataforma.buscarPelicula(nombre);
+                    if(contenido != null){
+                        plataforma.reproducir(contenido);
+                    }else {
+                        System.out.println("La película no existe en la plataforma");
+                    }
                 }
                 case ELIMINAR -> {
                     String nombreEliminar = ScannerUtils.capturarTexto("Titulo a eliminar: ");
