@@ -1,7 +1,7 @@
 package platzi.play.plataforma;
 
+import platzi.play.contenido.Contenido;
 import platzi.play.contenido.Genero;
-import platzi.play.contenido.Pelicula;
 import platzi.play.contenido.ResumenContenido;
 import platzi.play.excepcion.PeliculaExistenteException;
 import platzi.play.util.FileUtils;
@@ -10,8 +10,8 @@ import java.util.*;
 
 public class Plataforma {
     private final String nombre;
-    private List<Pelicula> contenido;
-    private Map<Pelicula, Integer> visualizaciones;
+    private List<Contenido> contenido;
+    private Map<Contenido, Integer> visualizaciones;
 
 
     public Plataforma (String nombre){
@@ -20,8 +20,8 @@ public class Plataforma {
         this.visualizaciones = new HashMap<>();
     }
 
-    public void agregar(Pelicula elemento) {
-        Pelicula contenido = this.buscarPelicula(elemento.getTitulo());
+    public void agregar(Contenido elemento) {
+        Contenido contenido = this.buscarPelicula(elemento.getTitulo());
         if(contenido != null){
             throw new PeliculaExistenteException(elemento.getTitulo());
         }
@@ -29,62 +29,62 @@ public class Plataforma {
         this.contenido.add(elemento);
     }
 
-    public void reproducir(Pelicula contenido){
+    public void reproducir(Contenido contenido){
         int conteoActual = visualizaciones.getOrDefault(contenido, 0);
         System.out.println(contenido.getTitulo() + " tiene " + conteoActual + " visualizaciones.");
         this.contarVisualizacion(contenido);
         contenido.reproducir();
     }
 
-    private void contarVisualizacion(Pelicula contenido){
+    private void contarVisualizacion(Contenido contenido){
         int conteoActual = visualizaciones.getOrDefault(contenido, 0);
         visualizaciones.put(contenido, conteoActual + 1);
     }
 
     public List<String> getTitulos() {
-        return contenido.stream().map(Pelicula::getTitulo).toList();
+        return contenido.stream().map(Contenido::getTitulo).toList();
     }
 
     public List<ResumenContenido> getResumenes (){
         return contenido.stream().map(c -> new ResumenContenido(c.getTitulo(), c.getDuracion(), c.getGenero())).toList();
     }
 
-    public void eliminar(Pelicula elemento) {
+    public void eliminar(Contenido elemento) {
         this.contenido.remove(elemento);
     }
 
-    public Pelicula buscarPelicula (String titulo){
+    public Contenido buscarPelicula (String titulo){
         return contenido.stream().filter(contenido-> contenido.getTitulo().equalsIgnoreCase(titulo))
                 .findFirst().orElse(null);
     }
 
-    public List<Pelicula> buscarPorGenero(Genero genero) {
+    public List<Contenido> buscarPorGenero(Genero genero) {
         return contenido.stream()
                 .filter(contenido -> contenido.getGenero().equals(genero))
                 .toList();
     }
 
-    public List<Pelicula> getPopulares() {
-        return contenido.stream().sorted(Comparator.comparingDouble(Pelicula::getCalificacion).reversed()).toList();
+    public List<Contenido> getPopulares() {
+        return contenido.stream().sorted(Comparator.comparingDouble(Contenido::getCalificacion).reversed()).toList();
     }
 
-    public List<Pelicula> getMejorCalificadas() {
+    public List<Contenido> getMejorCalificadas() {
         return  contenido.stream().filter(pelicula -> pelicula.getCalificacion() > 4).toList();
     }
 
-    public Pelicula getPeliculaMasLarga() {
-        return contenido.stream().max(Comparator.comparingInt(Pelicula::getDuracion)).orElse(null);
+    public Contenido getPeliculaMasLarga() {
+        return contenido.stream().max(Comparator.comparingInt(Contenido::getDuracion)).orElse(null);
     }
 
     public int getDuracionTotal() {
-        return contenido.stream().mapToInt(Pelicula::getDuracion).sum();
+        return contenido.stream().mapToInt(Contenido::getDuracion).sum();
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public List<Pelicula> getContenido() {
+    public List<Contenido> getContenido() {
         return contenido;
     }
 }

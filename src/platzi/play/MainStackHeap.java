@@ -1,7 +1,5 @@
 package platzi.play;
 
-import platzi.play.contenido.Pelicula;
-
 public class MainStackHeap {
     public static void main(String[] args) {
 //        Pelicula reyLeon = new Pelicula("El rey leon", 135, "comedia");
