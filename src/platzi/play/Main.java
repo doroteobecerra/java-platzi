@@ -19,8 +19,9 @@ public class Main {
     public static final int MEJOR_CALIFICADAS = 6;
     public static final int PELICULA_LARGA = 7;
     public static final int REPRODUCIR = 8;
-    public static final int ELIMINAR = 9;
-    public static final int SALIR = 10;
+    public static final int BUSCAR_POR_TIPO = 9;
+    public static final int ELIMINAR = 10;
+    public static final int SALIR = 11;
 
     public static void main(String[] args) {
         Plataforma plataforma = new Plataforma(NOMBRE_VERSION);
@@ -41,8 +42,9 @@ public class Main {
                     6. Mejor calificadas
                     7. Película mas larga
                     8. Reproducir
-                    9. Eliminar
-                    10. Salir
+                    9. Buscar por tipo
+                    10. Eliminar
+                    11. Salir
                     """);
 
             switch (opcionElegida) {
@@ -103,6 +105,17 @@ public class Main {
                         plataforma.reproducir(contenido);
                     }else {
                         System.out.println("La película no existe en la plataforma");
+                    }
+                }
+                case BUSCAR_POR_TIPO -> {
+                    int tipoDeContenido = ScannerUtils.capturarNumero("Que tipo de contenido quieres agregar?\n 1. Pelicula\n2. Documental");
+
+                    if (tipoDeContenido == 1) {
+                        List<Pelicula> peliculas = plataforma.getPeliculas();
+                        peliculas.forEach(pelicula -> System.out.println(pelicula.obtenerFichaTecnica() + "\n"));
+                    } else {
+                        List<Documental> documentales = plataforma.getDocumentales();
+                        documentales.forEach(documental -> System.out.println(documental.obtenerFichaTecnica() + "\n"));
                     }
                 }
                 case ELIMINAR -> {
