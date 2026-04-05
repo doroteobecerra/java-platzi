@@ -74,6 +74,10 @@ public class Plataforma {
         return contenido.stream().filter(contenido -> contenido instanceof Documental).map(contenidoFiltrado -> (Documental) contenidoFiltrado).toList();
     }
 
+    public List<Promocionable> getPromocionable(){
+        return contenido.stream().filter(contenido -> contenido instanceof Promocionable).map(contenidoProm -> (Promocionable) contenidoProm).toList();
+    }
+
     public List<Contenido> getMejorCalificadas() {
         return  contenido.stream().filter(pelicula -> pelicula.getCalificacion() > 4).toList();
     }
